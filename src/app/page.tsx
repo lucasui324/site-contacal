@@ -99,8 +99,8 @@ export default function Contacal() {
   const [showPremiumOffer, setShowPremiumOffer] = useState(false)
   const [showDiscountWheel, setShowDiscountWheel] = useState(false)
   const [showPersonalizedLoading, setShowPersonalizedLoading] = useState(false)
-  const [showYampiCheckout, setShowYampiCheckout] = useState(false)
-  const [yampiLink, setYampiLink] = useState('')
+  const [showMercadoPagoCheckout, setShowMercadoPagoCheckout] = useState(false)
+  const [mercadoPagoLink, setMercadoPagoLink] = useState('')
   const [wheelDiscount, setWheelDiscount] = useState(0)
   const [isSpinning, setIsSpinning] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile>({
@@ -159,10 +159,10 @@ export default function Contacal() {
       setShowOnboarding(true)
     }
 
-    // Carregar link Yampi
-    const savedYampiLink = localStorage.getItem('contacal-yampi-link')
-    if (savedYampiLink) {
-      setYampiLink(savedYampiLink)
+    // Carregar link Mercado Pago
+    const savedMercadoPagoLink = localStorage.getItem('contacal-mercadopago-link')
+    if (savedMercadoPagoLink) {
+      setMercadoPagoLink(savedMercadoPagoLink)
     }
   }, [])
 
@@ -174,10 +174,10 @@ export default function Contacal() {
     }
   }
 
-  const saveYampiLink = (link: string) => {
-    setYampiLink(link)
+  const saveMercadoPagoLink = (link: string) => {
+    setMercadoPagoLink(link)
     if (mounted) {
-      localStorage.setItem('contacal-yampi-link', link)
+      localStorage.setItem('contacal-mercadopago-link', link)
     }
   }
 
@@ -234,7 +234,7 @@ export default function Contacal() {
     setShowOnboarding(false)
     setShowPremiumOffer(false)
     setShowDiscountWheel(false)
-    setShowYampiCheckout(false)
+    setShowMercadoPagoCheckout(false)
   }
 
   const skipToPremium = () => {
@@ -245,8 +245,8 @@ export default function Contacal() {
     setShowDiscountWheel(true)
   }
 
-  const proceedToYampiCheckout = () => {
-    setShowYampiCheckout(true)
+  const proceedToMercadoPagoCheckout = () => {
+    setShowMercadoPagoCheckout(true)
   }
 
   const spinWheel = () => {
@@ -486,14 +486,14 @@ export default function Contacal() {
     )
   }
 
-  // Renderizar Checkout Yampi
-  if (showYampiCheckout) {
+  // Renderizar Checkout Mercado Pago
+  if (showMercadoPagoCheckout) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl border-0 shadow-2xl bg-white/90 backdrop-blur-sm">
           <CardContent className="p-8">
             <div className="text-center space-y-6">
-              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto">
                 <CreditCard className="w-10 h-10 text-white" />
               </div>
               
@@ -501,37 +501,37 @@ export default function Contacal() {
                 Finalizar Assinatura Premium
               </h2>
               
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl">
-                <h3 className="text-xl font-bold text-green-600 mb-4">🎉 Parabéns pela escolha!</h3>
+              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-2xl">
+                <h3 className="text-xl font-bold text-blue-600 mb-4">🎉 Parabéns pela escolha!</h3>
                 <p className="text-gray-700 mb-4">
                   Você está prestes a ter acesso completo ao Contacal Premium com todas as funcionalidades exclusivas.
                 </p>
                 
                 <div className="space-y-2 text-left text-sm text-gray-600">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     <span>Meta calórica personalizada: <strong>{calculateCalorieGoal()} kcal/dia</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     <span>Scanner de código de barras</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     <span>Análise de fotos com IA</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     <span>Planos alimentares personalizados</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     <span>Suporte nutricional 24/7</span>
                   </div>
                 </div>
               </div>
 
-              {yampiLink ? (
+              {mercadoPagoLink ? (
                 <div className="space-y-4">
                   <div className="bg-blue-50 p-4 rounded-xl">
                     <p className="text-blue-800 font-medium mb-2">
@@ -543,11 +543,11 @@ export default function Contacal() {
                   </div>
                   
                   <Button
-                    onClick={() => window.open(yampiLink, '_blank')}
-                    className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white py-4 text-lg font-bold"
+                    onClick={() => window.open(mercadoPagoLink, '_blank')}
+                    className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white py-4 text-lg font-bold"
                   >
                     <ExternalLink className="w-5 h-5 mr-2" />
-                    Finalizar Pagamento - Yampi
+                    Finalizar Pagamento - Mercado Pago
                   </Button>
                 </div>
               ) : (
@@ -556,7 +556,7 @@ export default function Contacal() {
                     ⚙️ Configuração Necessária
                   </h3>
                   <p className="text-orange-700 mb-4">
-                    Para processar pagamentos, você precisa configurar seu link do Yampi.
+                    Para processar pagamentos, você precisa configurar seu link do Mercado Pago.
                   </p>
                   <p className="text-sm text-orange-600 mb-4">
                     Entre em contato com o suporte para configurar sua integração de pagamento.
@@ -564,22 +564,22 @@ export default function Contacal() {
                   
                   <div className="space-y-3">
                     <Input
-                      placeholder="Cole aqui seu link do Yampi (temporário para teste)"
-                      value={yampiLink}
-                      onChange={(e) => setYampiLink(e.target.value)}
+                      placeholder="Cole aqui seu link do Mercado Pago (temporário para teste)"
+                      value={mercadoPagoLink}
+                      onChange={(e) => setMercadoPagoLink(e.target.value)}
                       className="text-sm"
                     />
                     
                     <Button
                       onClick={() => {
-                        if (yampiLink.trim()) {
-                          saveYampiLink(yampiLink.trim())
+                        if (mercadoPagoLink.trim()) {
+                          saveMercadoPagoLink(mercadoPagoLink.trim())
                         }
                       }}
-                      disabled={!yampiLink.trim()}
+                      disabled={!mercadoPagoLink.trim()}
                       className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                     >
-                      Salvar Link Yampi
+                      Salvar Link Mercado Pago
                     </Button>
                   </div>
                 </div>
@@ -728,7 +728,7 @@ export default function Contacal() {
                 </div>
                 
                 <Button
-                  onClick={proceedToYampiCheckout}
+                  onClick={proceedToMercadoPagoCheckout}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white py-4 text-lg font-bold"
                 >
                   Assinar com {wheelDiscount}% OFF - R$ {(29.99 * (1 - wheelDiscount/100)).toFixed(2)}/mês
@@ -843,7 +843,7 @@ export default function Contacal() {
 
               <div className="space-y-3">
                 <Button
-                  onClick={proceedToYampiCheckout}
+                  onClick={proceedToMercadoPagoCheckout}
                   className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-4 text-lg font-bold"
                 >
                   🚀 Escolher Plano Premium
@@ -1939,41 +1939,41 @@ export default function Contacal() {
                   </div>
                 </div>
 
-                {/* Configuração do Link Yampi */}
-                <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+                {/* Configuração do Link Mercado Pago */}
+                <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200">
                   <CardHeader>
-                    <CardTitle className="text-green-800 flex items-center gap-2">
+                    <CardTitle className="text-blue-800 flex items-center gap-2">
                       <CreditCard className="w-5 h-5" />
                       Configuração de Pagamento
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <Label htmlFor="yampi-link" className="text-green-700">Link do Yampi para Checkout</Label>
+                      <Label htmlFor="mercadopago-link" className="text-blue-700">Link do Mercado Pago para Checkout</Label>
                       <Input
-                        id="yampi-link"
-                        placeholder="Cole aqui seu link do Yampi"
-                        value={yampiLink}
-                        onChange={(e) => setYampiLink(e.target.value)}
+                        id="mercadopago-link"
+                        placeholder="Cole aqui seu link do Mercado Pago"
+                        value={mercadoPagoLink}
+                        onChange={(e) => setMercadoPagoLink(e.target.value)}
                         className="mt-2"
                       />
                     </div>
                     <Button
                       onClick={() => {
-                        if (yampiLink.trim()) {
-                          saveYampiLink(yampiLink.trim())
-                          alert('Link do Yampi salvo com sucesso!')
+                        if (mercadoPagoLink.trim()) {
+                          saveMercadoPagoLink(mercadoPagoLink.trim())
+                          alert('Link do Mercado Pago salvo com sucesso!')
                         }
                       }}
-                      disabled={!yampiLink.trim()}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                      disabled={!mercadoPagoLink.trim()}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                     >
-                      Salvar Link do Yampi
+                      Salvar Link do Mercado Pago
                     </Button>
-                    {yampiLink && (
-                      <div className="bg-green-100 p-3 rounded-lg">
-                        <p className="text-sm text-green-700">
-                          ✅ Link configurado! Agora os usuários podem finalizar pagamentos através do seu checkout Yampi.
+                    {mercadoPagoLink && (
+                      <div className="bg-blue-100 p-3 rounded-lg">
+                        <p className="text-sm text-blue-700">
+                          ✅ Link configurado! Agora os usuários podem finalizar pagamentos através do seu checkout Mercado Pago.
                         </p>
                       </div>
                     )}
@@ -1986,7 +1986,7 @@ export default function Contacal() {
                   onClick={() => {
                     localStorage.removeItem('contacal-profile')
                     localStorage.removeItem('contacal-meals')
-                    localStorage.removeItem('contacal-yampi-link')
+                    localStorage.removeItem('contacal-mercadopago-link')
                     window.location.reload()
                   }}
                 >
